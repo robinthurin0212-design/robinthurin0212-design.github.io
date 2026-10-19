@@ -64,6 +64,7 @@ while queue:
     fetched.append(path)
     print(f"Fetched {path}: {len(data)} bytes")
     if is_page:
+        print("PAGE_HTML_START", data.decode("utf-8", errors="replace"), "PAGE_HTML_END")
         print(f"Page {path} title: {re.findall(r'<title[^>]*>(.*?)</title>', data.decode('utf-8', errors='replace'), re.I | re.S)[:1]}")
 
 index = ROOT / "index.html"
