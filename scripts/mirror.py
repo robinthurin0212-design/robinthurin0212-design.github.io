@@ -34,7 +34,7 @@ def discover(text, current):
             continue
         path = unquote(parsed.path)
         if (path == "/" or Path(path).suffix.lower() in EXTENSIONS
-                or (not Path(path).suffix and not path.startswith(("/cdn-cgi/", "/api/")))):
+                or (not Path(path).suffix and re.fullmatch(r"/[A-Za-z0-9_/-]*", path) and not path.startswith(("/cdn-cgi/", "/api/")))):
             found.add(path)
     return found
 
