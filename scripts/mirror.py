@@ -59,7 +59,7 @@ while queue:
     if "text/" in content_type or "javascript" in content_type or dest.suffix in {".js", ".css", ".svg", ".json"}:
         body = data.decode("utf-8", errors="replace")
         if "text/html" in content_type:
-            body = re.sub(r"<script>[^<]*__CF\\$cv\\$params.*?</script>", "", body, flags=re.S)
+            body = re.sub(r"<script>[^<]*__CF.*?</script>", "", body, flags=re.S)
         queue.extend(sorted(discover(body, path) - seen))
         data = body.replace(SOURCE.rstrip("/"), TARGET).encode("utf-8")
     dest.write_bytes(data)
