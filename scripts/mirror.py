@@ -12,7 +12,7 @@ TARGET = "https://robinthurin0212-design.github.io"
 HOST = urlparse(SOURCE).netloc
 ROOT = Path("dist")
 ROOT.mkdir(exist_ok=True)
-EXTENSIONS = {".css", ".js", ".mjs", ".json", ".png", ".jpg", ".jpeg",
+EXTENSIONS = {".html", ".css", ".js", ".mjs", ".json", ".png", ".jpg", ".jpeg",
               ".webp", ".gif", ".svg", ".ico", ".woff", ".woff2",
               ".ttf", ".otf", ".pdf", ".mp4", ".webm", ".txt", ".xml"}
 queue = deque(["/"])
@@ -58,13 +58,14 @@ while queue:
     dest.parent.mkdir(parents=True, exist_ok=True)
     if "text/" in content_type or "javascript" in content_type or dest.suffix in {".js", ".css", ".svg", ".json"}:
         body = data.decode("utf-8", errors="replace")
+        if "text/html" in content_type:
+            body = re.sub(r"<script>[^<]*__CF\\$cv\\$params.*?</script>", "", body, flags=re.S)
         queue.extend(sorted(discover(body, path) - seen))
         data = body.replace(SOURCE.rstrip("/"), TARGET).encode("utf-8")
     dest.write_bytes(data)
     fetched.append(path)
     print(f"Fetched {path}: {len(data)} bytes")
     if is_page:
-        print("PAGE_HTML_START", data.decode("utf-8", errors="replace"), "PAGE_HTML_END")
         print(f"Page {path} title: {re.findall(r'<title[^>]*>(.*?)</title>', data.decode('utf-8', errors='replace'), re.I | re.S)[:1]}")
 
 index = ROOT / "index.html"
