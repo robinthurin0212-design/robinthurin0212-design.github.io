@@ -9,6 +9,10 @@
   <title>Profil & vision · Robin Thurin</title>
   <link rel="icon" href="assets/rt.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/navigation-transitions.css">
+  <link rel="preload" href="assets/robin-profil-2026.jpg" as="image">
+  <link rel="expect" href="#section-portrait" blocking="render">
+  <script src="assets/navigation-transitions.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -32,7 +36,7 @@
         <h1 id="profile-title">De l’architecture<br>à l’<em>urbanisme</em></h1>
       </div>
       <figure class="profile-photo">
-        <img src="assets/robin-profil-2026.jpg" alt="Portrait de Robin Thurin en extérieur" width="860" height="1433">
+        <img id="section-portrait" src="assets/robin-profil-2026.jpg" alt="Portrait de Robin Thurin en extérieur" width="860" height="1433" data-transition-target>
         <figcaption>Robin Thurin · Bordeaux</figcaption>
       </figure>
       <div class="profile-bio">

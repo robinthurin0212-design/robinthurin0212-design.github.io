@@ -1,0 +1,15 @@
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 240ms;
+  animation-timing-function: ease-out;
+}
+
+::view-transition-group(section-photo) {
+  z-index: 1;
+  animation-duration: 640ms;
+  animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+}

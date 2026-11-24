@@ -161,6 +161,13 @@ figcaption { margin-top: .58rem; color: var(--muted); font-size: .86rem; line-he
 
 .page-heading { margin-bottom: clamp(1.8rem, 4vw, 3.25rem); }
 .page-heading p { margin-top: .7rem; color: var(--muted); font-size: 1.08rem; max-width: 38rem; }
+.page-heading:has(> .section-photo:not([hidden])) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 22rem);
+  align-items: center;
+  gap: 1.4rem clamp(1rem, 4vw, 3.5rem);
+}
+.section-photo img { width: 100%; height: auto; }
 
 .profile-layout {
   display: grid;
@@ -258,6 +265,8 @@ figcaption { margin-top: .58rem; color: var(--muted); font-size: .86rem; line-he
 }
 
 @media (max-width: 48rem) {
+  .page-heading:has(> .section-photo:not([hidden])) { grid-template-columns: 1fr; }
+  .section-photo { width: min(100%, 22rem); }
   .site-header { flex-wrap: wrap; gap: .5rem; padding-top: .85rem; }
   .site-nav { width: 100%; gap: .2rem; }
   .site-nav a { font-size: .91rem; }
