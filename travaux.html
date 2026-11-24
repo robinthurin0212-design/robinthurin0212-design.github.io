@@ -9,6 +9,10 @@
   <title>Travaux & projets · Robin Thurin</title>
   <link rel="icon" href="assets/rt.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/navigation-transitions.css">
+  <link rel="preload" href="assets/jardin-ars-vue-aerienne.webp" as="image">
+  <link rel="expect" href="#jardin-ars-image" blocking="render">
+  <script src="assets/navigation-transitions.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -65,9 +69,12 @@
         </div>
       </article>
       <article class="project" id="jardin-ars">
-        <div class="project-image">
-          <img src="assets/jardin-ars-eau-fil-des-saisons.jpeg" alt="Croquis de proposition pour le Jardin de l’Ars" width="1428" height="1013" loading="lazy">
-        </div>
+        <figure>
+          <div class="project-image">
+            <img id="jardin-ars-image" src="assets/jardin-ars-vue-aerienne.webp" alt="Vue aérienne du Jardin de l’Ars, de ses pelouses et de ses allées à Bordeaux" width="1120" height="800" data-transition-target>
+          </div>
+          <figcaption>Vue aérienne du Jardin de l’Ars · <a href="https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO">IGN · BD ORTHO</a> · <a href="https://www.etalab.gouv.fr/licence-ouverte-open-licence/">Licence Ouverte 2.0</a></figcaption>
+        </figure>
         <div class="project-body">
           <p class="project-type">Exercice universitaire collectif</p>
           <h2>Jardin de l’Ars · Eau’Fil des Saisons</h2>
