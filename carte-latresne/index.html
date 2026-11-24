@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#1b2424">
+  <meta name="description" content="Carte interactive des mobilités extérieures de Latresne : axes routiers, cars régionaux, piste cyclable et lieux repères.">
+  <title>Latresne · Mobilités extérieures</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app">
+    <aside class="panel" id="panel" aria-label="Légende et calques">
+      <div class="panel-heading">
+        <p class="eyebrow">Carte de travail</p>
+        <h1>Mobilités extérieures<br><span>de Latresne</span></h1>
+        <p class="intro">Explorez les axes routiers et les points d’analyse. Les arrêts de car sont indiqués à titre de repère.</p>
+      </div>
+
+      <section class="panel-section" aria-labelledby="layers-title">
+        <h2 id="layers-title">Afficher</h2>
+        <label class="layer-control"><input type="checkbox" data-layer="roads" checked><span class="toggle"></span><span>Axes routiers</span></label>
+        <label class="layer-control"><input type="checkbox" data-layer="bus" checked><span class="toggle"></span><span>Arrêts de car et TBM</span></label>
+      </section>
+
+      <section class="panel-section" aria-labelledby="legend-title">
+        <h2 id="legend-title">Légende</h2>
+        <div class="legend-grid">
+          <span class="line-swatch road d113"></span><span>D113</span>
+          <span class="line-swatch road d10"></span><span>D10</span>
+          <span class="line-swatch road d240"></span><span>D240</span>
+          <span class="line-swatch cycle"></span><span>Piste cyclable</span>
+          <span class="line-swatch water"></span><span>Garonne</span>
+          <span class="dot-swatch bus-stop"></span><span>Arrêt de car régional</span>
+          <span class="dot-swatch tbm-stop"></span><span>Arrêt TBM de Bouliac</span>
+        </div>
+      </section>
+
+      <section class="panel-section future" aria-labelledby="future-title">
+        <h2 id="future-title">Points à venir</h2>
+        <div class="future-row"><span class="dot-swatch solution"></span><span>Solutions</span></div>
+        <div class="future-row"><span class="dot-swatch issue"></span><span>Problématiques / diagnostic</span></div>
+        <div class="future-row"><span class="dot-swatch quote"></span><span>Verbatims</span></div>
+      </section>
+
+      <p class="panel-note">Fond cartographique fourni par le groupe de travail. Arrêts recalés d’après les données Nouvelle-Aquitaine Mobilités publiées sur transport.data.gouv.fr.</p>
+    </aside>
+
+    <section class="map-region" aria-label="Carte interactive de Latresne">
+      <button class="panel-toggle" id="panel-toggle" type="button" aria-controls="panel" aria-expanded="true">
+        <span aria-hidden="true">☰</span><span class="sr-only">Afficher ou masquer la légende</span>
+      </button>
+
+      <button class="video-button" id="intro-video-button" type="button" aria-haspopup="dialog">
+        <span class="video-button-icon" aria-hidden="true">▶</span>
+        <span>Revoir la vidéo</span>
+      </button>
+
+      <div class="map-viewport" id="map-viewport" tabindex="0" aria-label="Carte. Utilisez la molette ou les boutons pour zoomer, et faites glisser pour vous déplacer.">
+        <div class="map-scene" id="map-scene">
+          <img class="map-background" src="./assets/fond-latresne.jpg?v=20261124" width="2048" height="1160" alt="Fond cartographique stylisé de Latresne et de ses environs">
+          <svg id="map-overlay" viewBox="0 0 2048 1160" width="2048" height="1160" role="group" aria-label="Axes et arrêts de car interactifs">
+            <g id="water-layer" class="map-layer"></g>
+            <g id="roads-layer" class="map-layer"></g>
+            <g id="bus-layer" class="map-layer"></g>
+            <g id="future-layer" class="map-layer"></g>
+          </svg>
+        </div>
+
+        <div class="popup" id="popup" role="dialog" aria-live="polite" hidden>
+          <button type="button" class="popup-close" id="popup-close" aria-label="Fermer">×</button>
+          <p class="popup-kicker" id="popup-kicker"></p>
+          <h2 id="popup-title"></h2>
+          <div id="popup-body"></div>
+        </div>
+      </div>
+
+      <div class="map-controls" aria-label="Commandes de la carte">
+        <button type="button" id="zoom-in" aria-label="Zoomer">+</button>
+        <button type="button" id="zoom-out" aria-label="Dézoomer">−</button>
+        <button type="button" id="reset-view" class="reset" aria-label="Recentrer la carte" title="Recentrer">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20h-6v-6h-4v6H4z"/></svg>
+        </button>
+      </div>
+
+      <div class="video-dialog" id="intro-video-dialog" role="dialog" aria-modal="true" aria-labelledby="intro-video-title" hidden>
+        <div class="video-card">
+          <button type="button" class="video-close" id="intro-video-close" aria-label="Fermer">×</button>
+          <div class="video-placeholder" aria-hidden="true"><span>▶</span></div>
+          <p class="popup-kicker">Vidéo d’introduction</p>
+          <h2 id="intro-video-title">Emplacement réservé</h2>
+          <p>La vidéo de présentation pourra être revisionnée ici dès qu’elle aura été ajoutée.</p>
+        </div>
+      </div>
+
+    </section>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

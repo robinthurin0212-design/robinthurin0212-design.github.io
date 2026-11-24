@@ -25,7 +25,7 @@ def main():
     OUTPUT.mkdir(exist_ok=True)
     for filename in SITE_FILES:
         copy2(ROOT / filename, OUTPUT / filename)
-    for directory in ("assets", "documents"):
+    for directory in ("assets", "documents", "carte-latresne"):
         copytree(ROOT / directory, OUTPUT / directory, dirs_exist_ok=True)
 
 
