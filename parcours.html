@@ -9,6 +9,10 @@
   <title>Parcours · Robin Thurin</title>
   <link rel="icon" href="assets/rt.svg" type="image/svg+xml">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="assets/navigation-transitions.css">
+  <link rel="preload" href="assets/bordeaux-montaigne-logo.png" as="image">
+  <link rel="expect" href="#section-logo" blocking="render">
+  <script src="assets/navigation-transitions.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Aller au contenu</a>
@@ -31,7 +35,9 @@
         <h1>Parcours</h1>
         <p>Formation, expériences et engagements.</p>
       </div>
-      <figure class="section-photo" hidden></figure>
+      <figure class="section-photo section-logo">
+        <img id="section-logo" src="assets/bordeaux-montaigne-logo.png" width="692" height="220" alt="Logo de l’Université Bordeaux Montaigne" data-transition-target>
+      </figure>
     </header>
     <div class="resume">
       <section aria-labelledby="formation">

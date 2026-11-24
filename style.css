@@ -168,6 +168,7 @@ figcaption { margin-top: .58rem; color: var(--muted); font-size: .86rem; line-he
   gap: 1.4rem clamp(1rem, 4vw, 3.5rem);
 }
 .section-photo img { width: 100%; height: auto; }
+.section-logo { padding: clamp(.9rem, 2vw, 1.6rem); background: #e8ede2; }
 
 .profile-layout {
   display: grid;
