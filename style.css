@@ -109,7 +109,7 @@ h1 em { color: var(--forest); font: italic 400 1.04em / 1 Georgia, serif; letter
     "city city city city city city coast coast coast profile"
     "city city city city city city oak oak oak profile"
     "trail trail trail trail trail work work work work duo"
-    "music music music music logo logo logo garden garden duo";
+    "field field field field logo logo logo garden garden duo";
   gap: clamp(.35rem, 1vw, .65rem);
   aspect-ratio: 1.4;
 }
@@ -121,7 +121,7 @@ h1 em { color: var(--forest); font: italic 400 1.04em / 1 Georgia, serif; letter
 .mosaic-work { grid-area: work; }
 .hero-mosaic > .mosaic-duo { grid-area: duo; background: #e4d8c0; }
 .mosaic-coast { grid-area: coast; }
-.mosaic-music { grid-area: music; }
+.mosaic-field { grid-area: field; position: relative; }
 .hero-mosaic > .mosaic-logo { grid-area: logo; background: #e8ede2; padding: clamp(.45rem, 1.5vw, 1rem); }
 .mosaic-oak { grid-area: oak; }
 .hero-mosaic > .mosaic-profile { grid-area: profile; background: #e9e0cb; }
@@ -130,6 +130,17 @@ h1 em { color: var(--forest); font: italic 400 1.04em / 1 Georgia, serif; letter
 .mosaic-garden img { object-position: center 60%; }
 .mosaic-work img, #jardin-ars-image { object-position: center 85%; }
 .mosaic-logo img { object-fit: contain; }
+
+.mosaic-field img {
+  position: absolute;
+  inset-inline-start: -16%;
+  bottom: 0;
+  width: 132%;
+  max-width: none;
+  height: auto;
+  translate: 0 39.25%;
+  transform-origin: center 51%;
+}
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .hero-mosaic img { transition: transform .36s ease, filter .36s ease; }
@@ -294,7 +305,7 @@ figcaption { margin-top: .58rem; color: var(--muted); font-size: .86rem; line-he
       "city city city city city"
       "duo duo coast coast coast"
       "duo duo trail trail trail"
-      "duo duo music music music"
+      "duo duo field field field"
       "profile profile work work work"
       "oak oak oak garden garden"
       "logo logo logo garden garden";
