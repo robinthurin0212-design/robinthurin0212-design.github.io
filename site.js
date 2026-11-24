@@ -1,5 +1,18 @@
-const menu=document.querySelector('.menu-toggle');const nav=document.querySelector('nav');
-menu?.addEventListener('click',()=>{const open=menu.getAttribute('aria-expanded')!=='true';menu.setAttribute('aria-expanded',String(open));nav.classList.toggle('open',open);menu.querySelector('span').textContent=open?'−':'＋'});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'&&nav.classList.contains('open')){nav.classList.remove('open');menu.setAttribute('aria-expanded','false');menu.querySelector('span').textContent='＋';menu.focus()}});
-let toastTimer;document.querySelectorAll('[data-copy]').forEach(button=>button.addEventListener('click',async()=>{const toast=document.getElementById('toast');try{await navigator.clipboard.writeText(button.dataset.copy);toast.textContent='Copié dans le presse-papiers';}catch{toast.textContent='Copie indisponible. Sélectionnez le texte pour le copier.'}clearTimeout(toastTimer);toast.classList.add('visible');toastTimer=setTimeout(()=>toast.classList.remove('visible'),2800)}));
-if('IntersectionObserver' in window&&!matchMedia('(prefers-reduced-motion: reduce)').matches){const observer=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('seen');observer.unobserve(e.target)}}),{threshold:.08});document.querySelectorAll('.project,.timeline-item,.skills-grid>.panel').forEach(el=>{el.classList.add('reveal');observer.observe(el)})}
+const copyStatus = document.querySelector("#copy-status");
+
+if (navigator.clipboard && copyStatus) {
+  for (const button of document.querySelectorAll("[data-copy]")) {
+    button.hidden = false;
+    button.addEventListener("click", async () => {
+      copyStatus.textContent = "";
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy);
+        copyStatus.textContent = button.dataset.copy.includes("@")
+          ? "Adresse e-mail copiée."
+          : "Numéro de téléphone copié.";
+      } catch {
+        copyStatus.textContent = "Copie indisponible. Vous pouvez sélectionner le texte.";
+      }
+    });
+  }
+}
