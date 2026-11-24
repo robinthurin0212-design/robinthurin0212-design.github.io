@@ -128,6 +128,7 @@ h1 em { color: var(--forest); font: italic 400 1.04em / 1 Georgia, serif; letter
 .hero-mosaic img, .project-image img { width: 100%; height: 100%; object-fit: cover; }
 .mosaic-duo img, .mosaic-profile img img { object-fit: contain; }
 .mosaic-garden img { object-position: center 60%; }
+.mosaic-work img, #jardin-ars-image { object-position: center 85%; }
 .mosaic-logo img { object-fit: contain; }
 
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
