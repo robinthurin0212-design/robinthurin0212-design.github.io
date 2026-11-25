@@ -229,10 +229,11 @@
     const layer = $('#bus-layer');
     busStops.forEach(stop => {
       const [x,y] = Number.isFinite(stop.x) ? [stop.x, stop.y] : project(stop.lat, stop.lon);
-      const g = el('g', {class:'stop-marker', transform:`translate(${x} ${y})`, 'aria-label':`Arrêt de car ${stop.name}, lignes ${stop.lines.join(', ')}`}, layer);
+      const g = stop.school ? markerGroup(layer, x, y, stop.name, () => openPopup({kicker:'Verbatims', title:stop.name, body:'<p>Les verbatims du collège seront ajoutés ici.</p>'}, g)) : el('g', {class:'stop-marker', transform:`translate(${x} ${y})`, 'aria-label':`Arrêt de car ${stop.name}, lignes ${stop.lines.join(', ')}`}, layer);
       const title = el('title', {}, g);
       title.textContent = `${stop.name} — ${stop.lines.join(' · ')}`;
-      el('circle', {cx:0, cy:0, r:7.5, class:`stop-core${stop.school ? ' school' : ''}`}, g);
+      if (stop.school) { el('circle', {cx:0,cy:0,r:18,class:'hit'}, g); el('circle', {cx:0,cy:0,r:13,class:'focus-ring'}, g); el('circle', {cx:0,cy:0,r:9,class:'special-core quote-core'}, g); }
+      else el('circle', {cx:0,cy:0,r:7.5,class:'stop-core'}, g);
       const labelX = stop.labelDx ?? 13;
       const labelY = stop.labelY ?? -9;
       const labelAnchor = stop.labelAnchor || 'start';
