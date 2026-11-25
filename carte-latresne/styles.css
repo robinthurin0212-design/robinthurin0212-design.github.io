@@ -211,3 +211,9 @@ h1 span { color: #50605d; font-weight: 400; }
 .panel, .panel button, .panel input, .panel h1, .panel h2 {font-family: "Montserrat", system-ui, sans-serif;}
 .panel h1 {font-weight:800;line-height:1.04;letter-spacing:-.035em}
 .panel h1 span {font-weight:600}
+
+/* Les photographies restent lisibles sans rogner la pointe des bulles. */
+#popup-body { max-height: min(48vh, 360px); overflow-y: auto; overscroll-behavior: contain; }
+.popup-photo { margin: 12px 0 0; }
+.popup-photo img { display: block; width: 100%; height: auto; border-radius: 7px; }
+.popup-photo figcaption { margin-top: 5px; color: #66706e; font-size: 10px; line-height: 1.35; }

@@ -269,6 +269,12 @@
         {x:x-10, type:'solution', className:'solution-core', kicker:'Solution', body:`<p>Point solution pour ${location.name.toLowerCase()}. Les informations détaillées seront ajoutées ensuite.</p>`},
         {x:x+10, type:'diagnostic', className:'issue-core', kicker:'Problématique / diagnostic', body:`<p>Point de diagnostic pour ${location.name.toLowerCase()}. Les informations détaillées seront ajoutées ensuite.</p>`}
       ];
+      if (location.name === 'Aire de covoiturage') {
+        points[0].body = `<p>Nous proposons de créer un pôle multimodal sur l’aire de covoiturage, afin de faciliter les correspondances avec les transports en commun et de réduire l’usage de la voiture individuelle, qui contribue aux encombrements à Latresne.</p><p>Une liaison cyclable relierait ce pôle à la piste existante au nord, pour faciliter son accès à vélo et encourager son utilisation.</p><figure class="popup-photo"><img src="./assets/aire-projet.webp" alt="Illustration du projet de pôle multimodal à l’entrée de l’aire de covoiturage" loading="eager"><figcaption>Illustration du projet de pôle multimodal</figcaption></figure>`;
+        points[1].body = `<p>Vue actuelle de l’aire de covoiturage.</p><figure class="popup-photo"><img src="./assets/aire-diagnostic.webp" alt="Entrée actuelle de l’aire de covoiturage de Latresne" loading="eager"></figure>`;
+      } else if (location.name === 'Rond-point du chemin d’Arcins') {
+        points[1].body = `<p>Vue du secteur du chemin d’Arcins.</p><figure class="popup-photo"><img src="./assets/arcins-diagnostic.webp" alt="Vue du secteur du chemin d’Arcins" loading="eager"></figure>`;
+      }
       points.forEach(point => {
         const label = `${location.name} — ${point.type}`;
         const g = markerGroup(layer, point.x, y, label, () => openPopup({kicker:point.kicker, title:location.name, body:point.body}, g));
