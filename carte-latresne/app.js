@@ -41,9 +41,9 @@
     {name:'Chemin de Coulon', x:890, y:420, lines:['481','R481'], labelDx:18, labelY:-17},
     {name:'Les Carrières', x:918, y:591, lines:['481','R481'], labelDx:18, labelY:-18},
     {name:'Rond-point du 5 Décembre', x:956, y:742, lines:['481','R481'], labelDx:-18, labelY:-20, labelAnchor:'end'},
-    {name:"Chemin du Port de l’Homme", x:858, y:798, lines:['481','R481'], labelDx:-18, labelY:25, labelAnchor:'end'},
+    {name:"Chemin du Port de l’Homme", x:858, y:798, lines:['481','R481'], labelDx:18, labelY:-15, labelAnchor:'start'},
     // Ces trois arrêts sont calés visuellement sur les repères du fond fourni.
-    {name:'Aérocampus', x:1002, y:843, lines:['481','R481'], labelDx:18, labelY:22},
+    {name:'Aérocampus', x:1002, y:843, lines:['481','R481'], labelDx:18, labelY:38},
     {name:'Arcins', x:640, y:380, lines:['4881'], labelDx:18, labelY:-20},
     {name:'Collège Camille Claudel', x:1097, y:765, lines:['4881'], school:true, labelDx:18, labelY:-20}
   ];
@@ -73,8 +73,8 @@
       x:806,
       y:806,
       className:'issue-core',
-      labelX:-18,
-      labelY:72,
+      labelX:-20,
+      labelY:30,
       labelAnchor:'end',
       kicker:'Problématique / diagnostic',
       body:'<p><strong>Timelapse</strong></p><p>Emplacement réservé. La vidéo sera intégrée dès sa réception.</p>'
@@ -84,8 +84,9 @@
       x:987,
       y:808,
       className:'quote-core',
-      labelX:18,
-      labelY:35,
+      labelX:-18,
+      labelY:-18,
+      labelAnchor:'end',
       kicker:'Porteur de parole',
       body:'<p><strong>Statistiques du porteur de parole</strong></p><p>Données à intégrer : participation, thèmes exprimés et principaux verbatims.</p>'
     }
