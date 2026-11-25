@@ -40,8 +40,8 @@
     {name:'La Seleyre', x:871, y:322, lines:['481','4881','R481'], labelDx:18, labelY:-22},
     {name:'Chemin de Coulon', x:890, y:420, lines:['481','R481'], labelDx:18, labelY:-17},
     {name:'Les Carrières', x:918, y:591, lines:['481','R481'], labelDx:18, labelY:-18},
-    {name:'Rond-point du 5 Décembre', x:956, y:742, lines:['481','R481'], labelDx:-18, labelY:-20, labelAnchor:'end'},
-    {name:"Chemin du Port de l’Homme", x:858, y:798, lines:['481','R481'], labelDx:18, labelY:-15, labelAnchor:'start'},
+    {name:'Rond-point du 5 Décembre', x:956, y:742, lines:['481','R481'], labelDx:18, labelY:-24, labelAnchor:'start'},
+    {name:"Chemin du Port de l’Homme", x:858, y:798, lines:['481','R481'], labelDx:-22, labelY:-34, labelAnchor:'end'},
     // Ces trois arrêts sont calés visuellement sur les repères du fond fourni.
     {name:'Aérocampus', x:1002, y:843, lines:['481','R481'], labelDx:18, labelY:38},
     {name:'Arcins', x:640, y:380, lines:['4881'], labelDx:18, labelY:-20},
@@ -73,8 +73,8 @@
       x:806,
       y:806,
       className:'issue-core',
-      labelX:-20,
-      labelY:30,
+      labelX:-24,
+      labelY:-35,
       labelAnchor:'end',
       kicker:'Problématique / diagnostic',
       body:'<p><strong>Timelapse</strong></p><p>Emplacement réservé. La vidéo sera intégrée dès sa réception.</p>'
@@ -410,7 +410,8 @@
       else blocked.push(b);
     }
   }
-\n  renderWater();
+
+  renderWater();
   renderRoads();
   renderBus();
   renderSpecialPoints();
