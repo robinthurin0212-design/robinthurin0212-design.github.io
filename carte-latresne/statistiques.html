@@ -5,4 +5,34 @@ header{background:#253b37;color:#fff;padding:24px max(24px,calc((100vw - 1120px)
 </style></head><body><header><a href="./index.html">← Retour à la carte</a><div class="eyebrow">Mobilités extérieures · Latresne</div></header>
 <main><div class="eyebrow">Données de cadrage</div><h1>Statistiques des mobilités</h1><p class="lead">Deux visuels pour comprendre les déplacements domicile-travail et le lieu d’emploi des actifs. Cliquez sur une image pour l’agrandir.</p>
 <article class="card"><h2>Comment se rend-on au travail ?</h2><p>D’après le visuel fourni, en 2023, la voiture, le camion ou la fourgonnette représentent 83 % des déplacements domicile-travail à Latresne, contre 70,2 % en Gironde.</p><a class="image-link" href="./assets/statistiques-modes-travail.png"><img src="./assets/statistiques-modes-travail.png" alt="Comparaison des modes de transport pour aller au travail en 2023 à Latresne et en Gironde : voiture 83 % contre 70,2 %, transports en commun 3,6 % contre 12,6 %, marche 1,7 % contre 4,4 %, vélo 3,9 % contre 6,8 %, sans déplacement 5 % contre 4 %."></a><p class="source">Source indiquée sur le visuel : INSEE, 2023. Visuel fourni par le groupe de travail.</p></article>
-<article class="card"><h2>Où travaillent les actifs ?</h2><p>Le visuel indique que 19,5 % travaillent dans leur commune de résidence et 80,5 % dans une autre commune. Il concerne les actifs de 15 ans ou plus ayant un emploi ; le périmètre exact reste à préciser.</p><a class="image-link" href="./assets/statistiques-lieu-travail.png"><img src="./assets/statistiques-lieu-travail.png" alt="Lieu de travail des actifs occupés de 15 ans ou plus : 19,5 % dans leur commune de résidence et 80,5 % dans une autre commune."></a><p class="source">Source indiquée sur le visuel : INSEE, 2023. Visuel fourni par le groupe de travail.</p></article></main></body></html>
+<article class="card"><h2>Où travaillent les actifs ?</h2><p>Le visuel indique que 19,5 % travaillent dans leur commune de résidence et 80,5 % dans une autre commune. Il concerne les actifs de 15 ans ou plus ayant un emploi.</p><a class="image-link" href="./assets/statistiques-lieu-travail.png"><img src="./assets/statistiques-lieu-travail.png" alt="Lieu de travail des actifs occupés de 15 ans ou plus : 19,5 % dans leur commune de résidence et 80,5 % dans une autre commune."></a><p class="source">Source indiquée sur le visuel : INSEE, 2023. Visuel fourni par le groupe de travail.</p></article></main><script>
+/* Recolorie uniquement le fond uni des visuels ; les textes, diagrammes,
+   figurés et photographies restent issus des images d'origine. */
+document.querySelectorAll('.image-link img').forEach((img, index) => {
+  function recolor() {
+    const canvas = document.createElement('canvas');
+    canvas.width=img.naturalWidth; canvas.height=img.naturalHeight;
+    const ctx=canvas.getContext('2d', {willReadFrequently:true});
+    ctx.drawImage(img,0,0);
+    const pixels=ctx.getImageData(0,0,canvas.width,canvas.height);
+    const original=index===0?[188,219,228]:[0,151,178];
+    const target=index===0?[217,229,223]:[49,74,66];
+    for(let y=0;y<canvas.height;y++) for(let x=0;x<canvas.width;x++) {
+      const k=(y*canvas.width+x)*4, d=pixels.data;
+      const sx=x*1117/canvas.width, sy=y*627/canvas.height;
+      // Les deux disques contiennent des photos : aucun pixel n'y est modifié.
+      if(index===1 && (((sx-287)/169)**2+((sy-323)/169)**2<1.03 ||
+         ((sx-815)/214)**2+((sy-323)/214)**2<1.03)) continue;
+      const dist=Math.max(Math.abs(d[k]-original[0]),Math.abs(d[k+1]-original[1]),Math.abs(d[k+2]-original[2]));
+      if(dist<=3){d[k]=target[0];d[k+1]=target[1];d[k+2]=target[2];}
+    }
+    ctx.putImageData(pixels,0,0);
+    canvas.setAttribute('role','img'); canvas.setAttribute('aria-label',img.alt);
+    canvas.style.cssText='display:block;width:100%;height:auto;border-radius:6px';
+    img.replaceWith(canvas);
+    canvas.parentElement.href=canvas.toDataURL('image/png');
+  }
+  if(img.complete && img.naturalWidth) recolor();
+  else img.addEventListener('load',recolor,{once:true});
+});
+</script></body></html>
