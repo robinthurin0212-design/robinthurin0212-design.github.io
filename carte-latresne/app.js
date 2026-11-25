@@ -376,7 +376,41 @@
     closePopup();
   }
 
-  renderWater();
+
+  // Déplace seulement les étiquettes : les coordonnées des points restent fixes.
+  function arrangeMapLabels() {
+    const svg = document.querySelector('#map-overlay');
+    const scale = Math.abs(svg.getScreenCTM().a);
+    if (!scale) return;
+    const labels = [];
+    svg.querySelectorAll('.stop-marker').forEach(g => {
+      const texts = [...g.querySelectorAll('text')];
+      if (!texts.length) return;
+      const wrapper = el('g', {class:'label-placement'}, g);
+      texts.forEach(t => wrapper.appendChild(t));
+      labels.push(wrapper);
+    });
+    labels.push(...svg.querySelectorAll('.marker-label, .road-label'));
+    const rect = node => { const r=node.getBoundingClientRect(); return {l:r.left,t:r.top,r:r.right,b:r.bottom}; };
+    const blocked=[...svg.querySelectorAll('.stop-core,.special-core,.road-stat-core')].map(n=>{let b=rect(n);return {l:b.l-5,t:b.t-5,r:b.r+5,b:b.b+5}});
+    const collides=(a,b)=>a.l<b.r+3 && a.r>b.l-3 && a.t<b.b+3 && a.b>b.t-3;
+    for (const item of labels) {
+      const b=rect(item); if(!b.r || b.r===b.l) continue;
+      let chosen=null;
+      for(let radius=0;radius<=180 && !chosen;radius+=10) {
+        const count=radius===0?1:24;
+        for(let k=0;k<count;k++){
+          const angle=k*2*Math.PI/count;
+          const dx=radius*Math.cos(angle)*scale,dy=radius*Math.sin(angle)*scale;
+          const box={l:b.l+dx,r:b.r+dx,t:b.t+dy,b:b.b+dy};
+          if(!blocked.some(other=>collides(box,other))) {chosen={dx,dy,box};break;}
+        }
+      }
+      if(chosen){const before=item.getAttribute('transform')||'';item.setAttribute('transform',before+' translate('+(chosen.dx/scale)+' '+(chosen.dy/scale)+')');blocked.push(chosen.box);}
+      else blocked.push(b);
+    }
+  }
+\n  renderWater();
   renderRoads();
   renderBus();
   renderSpecialPoints();
@@ -452,5 +486,5 @@
 
   window.addEventListener('resize', fitView);
   if (window.innerWidth <= 820) panel.classList.remove('is-open');
-  requestAnimationFrame(fitView);
+  requestAnimationFrame(() => { fitView(); requestAnimationFrame(arrangeMapLabels); });
 })();
