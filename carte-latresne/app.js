@@ -43,7 +43,7 @@
     {name:'Rond-point du 5 Décembre', x:956, y:742, lines:['481','R481'], labelDx:18, labelY:-24, labelAnchor:'start'},
     {name:"Chemin du Port de l’Homme", x:858, y:798, lines:['481','R481'], labelDx:-22, labelY:-34, labelAnchor:'end'},
     // Ces trois arrêts sont calés visuellement sur les repères du fond fourni.
-    {name:'Aérocampus', x:1002, y:843, lines:['481','R481'], labelDx:18, labelY:38},
+    {name:'Aérocampus', x:1002, y:843, lines:['481','R481'], labelDx:20, labelY:5},
     {name:'Arcins', x:640, y:380, lines:['4881'], labelDx:18, labelY:-20},
     {name:'Collège Camille Claudel', x:1097, y:765, lines:['4881'], school:true, labelDx:18, labelY:-20}
   ];
@@ -52,13 +52,13 @@
   // cars régionaux et ne sont volontairement pas interactifs.
   const tbmStops = [
     {name:'Le Marais', lat:44.81297, lon:-0.50703, lines:['S5'], labelDx:18, labelY:20},
-    {name:'Route de Latresne', x:859, y:254, lines:['S5'], labelDx:-18, labelY:-17, labelAnchor:'end'}
+    {name:'Route de Latresne', x:859, y:278, lines:['S5'], labelDx:-18, labelY:-17, labelAnchor:'end'}
   ];
 
   const specialLocations = [
     {name:'Aire de covoiturage', x:1007, y:983},
     {name:"Rond-point du chemin d’Arcins", x:653, y:405, labelDx:-26, labelY:32, labelAnchor:'end'},
-    {name:'Rond-point de la Seleyre', x:852, y:224, labelDx:28, labelY:34}
+    {name:'Rond-point de la Seleyre', x:852, y:224, labelDx:0, labelY:-24, labelAnchor:'middle'}
   ];
 
   const roadStatsPoints = [
@@ -74,7 +74,7 @@
       y:806,
       className:'issue-core',
       labelX:-24,
-      labelY:-35,
+      labelY:5,
       labelAnchor:'end',
       kicker:'Problématique / diagnostic',
       body:'<p><strong>Timelapse</strong></p><p>Emplacement réservé. La vidéo sera intégrée dès sa réception.</p>'
@@ -84,9 +84,9 @@
       x:987,
       y:808,
       className:'quote-core',
-      labelX:-18,
-      labelY:-18,
-      labelAnchor:'end',
+      labelX:18,
+      labelY:5,
+      labelAnchor:'start',
       kicker:'Porteur de parole',
       body:'<p><strong>Statistiques du porteur de parole</strong></p><p>Données à intégrer : participation, thèmes exprimés et principaux verbatims.</p>'
     }
@@ -487,5 +487,5 @@
 
   window.addEventListener('resize', fitView);
   if (window.innerWidth <= 820) panel.classList.remove('is-open');
-  requestAnimationFrame(() => { fitView(); requestAnimationFrame(arrangeMapLabels); });
+  requestAnimationFrame(fitView);
 })();
