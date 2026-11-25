@@ -217,3 +217,14 @@ h1 span { color: #50605d; font-weight: 400; }
 .popup-photo { margin: 12px 0 0; }
 .popup-photo img { display: block; width: 100%; height: auto; border-radius: 7px; }
 .popup-photo figcaption { margin-top: 5px; color: #66706e; font-size: 10px; line-height: 1.35; }
+
+/* Bulle agrandie : le contenu défile indépendamment de la carte. */
+.popup { width: min(520px, calc(100% - 32px)); padding: 20px 24px; cursor: default; }
+.popup p { font-size: 15px; line-height: 1.55; }
+#popup-body { max-height: min(62vh, 540px); overflow-y: auto; overscroll-behavior: contain; touch-action: pan-y; padding-right: 8px; scrollbar-width: thin; }
+.popup-photo { margin: 14px 0 18px; }
+.popup-photo figcaption { font-size: 12px; }
+@media (max-width: 520px) {
+  .popup { width: calc(100% - 32px); padding: 16px 20px; }
+  #popup-body { max-height: min(55vh, 420px); }
+}

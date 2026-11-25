@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#1b2424">
   <meta name="description" content="Carte interactive des mobilités extérieures de Latresne : axes routiers, cars régionaux, piste cyclable et lieux repères.">
   <title>Latresne · Mobilités extérieures</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="./styles.css?v=20261125e">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="./styles.css?v=20261125g">
 </head>
 <body>
   <main class="app">
@@ -76,7 +76,7 @@
           <button type="button" class="popup-close" id="popup-close" aria-label="Fermer">×</button>
           <p class="popup-kicker" id="popup-kicker"></p>
           <h2 id="popup-title"></h2>
-          <div id="popup-body"></div>
+          <div id="popup-body" tabindex="0" role="region" aria-label="Contenu de la bulle, défilable"></div>
         </div>
       </div>
 
@@ -100,6 +100,6 @@
 
     </section>
   </main>
-  <script src="./app.js?v=20261125f"></script>
+  <script src="./app.js?v=20261125g"></script>
 </body>
 </html>

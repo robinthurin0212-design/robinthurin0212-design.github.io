@@ -270,7 +270,7 @@
         {x:x+10, type:'diagnostic', className:'issue-core', kicker:'Problématique / diagnostic', body:`<p>Point de diagnostic pour ${location.name.toLowerCase()}. Les informations détaillées seront ajoutées ensuite.</p>`}
       ];
       if (location.name === 'Aire de covoiturage') {
-        points[0].body = `<p>Nous proposons de créer un pôle multimodal sur l’aire de covoiturage, afin de faciliter les correspondances avec les transports en commun et de réduire l’usage de la voiture individuelle, qui contribue aux encombrements à Latresne.</p><p>Une liaison cyclable relierait ce pôle à la piste existante au nord, pour faciliter son accès à vélo et encourager son utilisation.</p><figure class="popup-photo"><img src="./assets/aire-projet.webp" alt="Illustration du projet de pôle multimodal à l’entrée de l’aire de covoiturage" loading="eager"><figcaption>Illustration du projet de pôle multimodal</figcaption></figure><figure class="popup-photo"><img src="./assets/liaison-cyclable-projet.webp" alt="Illustration d’une voie cyclable pour la liaison projetée vers la piste existante" loading="eager"><figcaption>Illustration de la liaison cyclable envisagée</figcaption></figure>`;
+        points[0].body = `<p>Nous proposons de créer un pôle multimodal sur l’aire de covoiturage, afin de faciliter les correspondances avec les transports en commun et de réduire l’usage de la voiture individuelle, qui contribue aux encombrements à Latresne.</p><figure class="popup-photo"><img src="./assets/aire-projet.webp" width="1704" height="962" alt="Illustration du projet de pôle multimodal à l’entrée de l’aire de covoiturage" loading="eager"><figcaption>Illustration du projet de pôle multimodal</figcaption></figure><p>Une liaison cyclable relierait ce pôle à la piste existante au nord, pour faciliter son accès à vélo et encourager son utilisation.</p><figure class="popup-photo"><img src="./assets/liaison-cyclable-projet.webp" width="717" height="480" alt="Illustration d’une voie cyclable pour la liaison projetée vers la piste existante" loading="eager"><figcaption>Illustration de la liaison cyclable envisagée</figcaption></figure>`;
         points[1].body = `<p>Vue actuelle de l’aire de covoiturage.</p><figure class="popup-photo"><img src="./assets/aire-diagnostic.webp" alt="Entrée actuelle de l’aire de covoiturage de Latresne" loading="eager"></figure>`;
       } else if (location.name === 'Rond-point du chemin d’Arcins') {
         points[1].body = `<p>Vue du secteur du chemin d’Arcins.</p><figure class="popup-photo"><img src="./assets/arcins-diagnostic.webp" alt="Vue du secteur du chemin d’Arcins" loading="eager"></figure>`;
@@ -326,6 +326,7 @@
     popupKicker.textContent = content.kicker;
     popupTitle.textContent = content.title;
     popupBody.innerHTML = content.body;
+    popupBody.scrollTop = 0;
     popup.hidden = false;
     const viewportRect = viewport.getBoundingClientRect();
     const anchorTarget = anchor.querySelector('.popup-anchor') || anchor;
@@ -444,6 +445,7 @@
   });
 
   viewport.addEventListener('wheel', event => {
+    if (event.target.closest('.popup')) return;
     event.preventDefault();
     zoomAt(event.deltaY < 0 ? 1.14 : .88, event.clientX, event.clientY);
   }, {passive:false});
@@ -467,6 +469,7 @@
   viewport.addEventListener('pointercancel', () => { dragging = false; viewport.classList.remove('is-dragging'); });
 
   viewport.addEventListener('keydown', event => {
+    if (event.target.closest('.popup')) return;
     const step = event.shiftKey ? 90 : 35;
     if (event.key === 'ArrowLeft') state.x += step;
     else if (event.key === 'ArrowRight') state.x -= step;
