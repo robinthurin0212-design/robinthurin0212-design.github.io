@@ -206,3 +206,8 @@ h1 span { color: #50605d; font-weight: 400; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+/* Typographie harmonisée avec les visuels statistiques. */
+.panel, .panel button, .panel input, .panel h1, .panel h2 {font-family: "Montserrat", system-ui, sans-serif;}
+.panel h1 {font-weight:800;line-height:1.04;letter-spacing:-.035em}
+.panel h1 span {font-weight:600}
