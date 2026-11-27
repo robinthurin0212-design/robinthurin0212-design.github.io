@@ -209,21 +209,33 @@
       t.textContent = item.text;
     });
 
+    // Les lignes du classeur sont comptées par axe ; un même événement peut
+    // figurer sur deux axes et ne doit donc pas être additionné entre eux.
+    const accidentYears = {
+      d113: [[2014,1],[2015,1],[2022,2],[2023,3],[2024,2],[2026,1]],
+      d10: [[2012,1],[2023,1],[2024,1],[2025,2]],
+      d240: [[2017,1]]
+    };
+    const accidentChart = key => {
+      const years = accidentYears[key];
+      const max = Math.max(...years.map(row => row[1]));
+      return `<section class="accident-chart"><h3>Accidents par année à Latresne</h3><p>Nombre de lignes par axe dans le fichier « Accidents Latresne ».</p><div class="chart-bars">${years.map(([year,n]) => `<div class="chart-row"><span>${year}</span><span class="chart-track"><span class="chart-bar" style="width:${n/max*100}%"></span></span><strong>${n}</strong></div>`).join('')}</div><p><a href="https://docs.google.com/spreadsheets/d/1BY_M5EfjzQsbYlOklulo8tkyHGhfZyTX/edit" target="_blank" rel="noopener noreferrer">Source : Accidents Latresne.xlsx</a></p></section>`;
+    };
     // Sources historiques : chaque valeur est limitée au tronçon et à la période indiqués.
     const roadData = {
       d113: `<p><strong>Trafic observé en juin 2018</strong><br>Environ 30 100 véhicules par jour sur la section étudiée de la D113, dont 3,6 % de poids lourds. Les comptages de la carte ont été réalisés du 12 au 18 juin 2018.</p>
-        <p><strong>Accidentologie, 2015–2017</strong><br>Deux accidents corporels recensés sur la section de D113 étudiée. Le périmètre ne couvre pas nécessairement tout l’axe.</p>
+        ${accidentChart('d113')}
         
         <p><a href="https://www.gironde.fr/sites/default/files/2019-11/Dossier%20de%20concertation_Voies-Reservees_RD113.pdf" target="_blank" rel="noopener noreferrer">Source : Département de la Gironde, dossier de concertation 2019, p. 24–25</a></p>`,
       d10: `<p><strong>Trafic observé en 2018</strong><br>Environ 22 000 véhicules par jour entre Camblanes-et-Meynac et Latresne, dont 3,8 % de poids lourds. Cette donnée concerne le tronçon au sud de la D113, pas toute la D10 ni la route de Bordeaux.</p>
-        <p><strong>Accidentologie, 2015–2017</strong><br>Trois accidents corporels recensés le long de la D10 à proximité de l’aire d’étude, sans correspondre nécessairement à l’ensemble de la commune.</p>
+        ${accidentChart('d10')}
         
         <p><a href="https://www.gironde.fr/sites/default/files/2019-11/Dossier%20de%20concertation_Voies-Reservees_RD113.pdf" target="_blank" rel="noopener noreferrer">Source : Département de la Gironde, dossier de concertation 2019, p. 24–25</a></p>`,
       d240: `<p><strong>Trafic de référence figurant dans un document de 2016</strong><br>7 820 véhicules par jour en moyenne annuelle (TMJA), dont 3 % de poids lourds, sur la D240 à Cénac, à partir de la sortie de Latresne. La date du comptage n’est pas précisée.</p>
-        <p><strong>Accidentologie, 2004–2008</strong><br>Le rapport de présentation du PLU de Latresne indique 3 accidents corporels sur la D240 dans la commune pendant cette période.</p>
+        ${accidentChart('d240')}
         
         <p><a href="https://www.gironde.gouv.fr/contenu/telechargement/29993/214938/file/ClassSonor_Cenac.pdf" target="_blank" rel="noopener noreferrer">Source trafic : Préfecture de la Gironde, classement sonore de Cénac, 2016, p. 2</a></p>
-        <p><a href="https://www.mairie-latresne.fr/wp-content/uploads/2021/07/1-RP.pdf" target="_blank" rel="noopener noreferrer">Source accidents : rapport de présentation du PLU de Latresne, janvier 2017, p. 56–58</a></p>`
+        `
     };
 
     roadStatsPoints.forEach(item => {
@@ -240,6 +252,35 @@
       const icon = el('text', {x:0, y:5, class:'road-stat-icon', 'text-anchor':'middle', 'aria-hidden':'true'}, g);
       icon.textContent = 'i';
     });
+    renderDirectionArrows(layer);
+  }
+
+  function renderDirectionArrows(layer) {
+    // Deux sens sur chaque branche des axes colorés, jamais sur les voies du fond.
+    const arms = [
+      {place:'Chemin d’Arcins', x:627,y:357,angle:65,road:'D113'},
+      {place:'Chemin d’Arcins', x:680,y:468,angle:65,road:'D113'},
+      {place:'Marie Blachère', x:764,y:672,angle:68,road:'D113'},
+      {place:'Marie Blachère', x:897,y:902,angle:43,road:'D113',
+       forward:'Marie Blachère vers l’aire de covoiturage : 812 véhicules de 17 h 16 à 17 h 55 ; 625 sur 30 minutes.',
+       reverse:'Aire de covoiturage vers Marie Blachère : 505 véhicules de 17 h 16 à 17 h 55 ; 388 sur 30 minutes.'},
+      {place:'La Seleyre',x:842,y:165,angle:81,road:'D10'},
+      {place:'La Seleyre',x:875,y:350,angle:77,road:'D10'},
+      {place:'Aire de covoiturage',x:960,y:957,angle:38,road:'D113'},
+      {place:'Aire de covoiturage',x:1017,y:920,angle:96,road:'D10'},
+      {place:'Aire de covoiturage',x:1055,y:1047,angle:62,road:'D10',
+       forward:'Vers Camblanes-et-Meynac : 464 véhicules de 17 h 30 à 18 h 30.',
+       reverse:'Depuis Camblanes : 263 véhicules de 17 h 30 à 18 h 30.'}
+    ];
+    arms.forEach(arm => [-1,1].forEach((direction,i) => {
+      const theta=arm.angle*Math.PI/180, offset=i ? 8 : -8;
+      const x=arm.x-Math.sin(theta)*offset, y=arm.y+Math.cos(theta)*offset;
+      const value=direction===1 ? arm.forward : arm.reverse;
+      const label=`Comptage ${arm.road} — ${arm.place}, vers le ${direction===1 ? 'sud-est' : 'nord-ouest'}`;
+      const g=markerGroup(layer,x,y,label,()=>openPopup({kicker:'Comptage directionnel',title:label,body:value ? `<p>${value}</p><p>Source : Retour terrain Latresne, onglet Comptage.</p>` : '<p>Comptage pour ce sens à renseigner.</p>'},g),'direction-marker');
+      el('circle',{r:13,class:'hit'},g);
+      el('path',{d:'M -9 -4 L 1 -4 L 1 -8 L 10 0 L 1 8 L 1 4 L -9 4 Z',transform:`rotate(${arm.angle+(direction===-1?180:0)})`,class:'direction-arrow'},g);
+    }));
   }
 
   function renderBus() {
@@ -290,7 +331,10 @@
         points[0].body = `<p>Nous proposons de créer un pôle multimodal sur l’aire de covoiturage, afin de faciliter les correspondances avec les transports en commun et de réduire l’usage de la voiture individuelle, qui contribue aux encombrements à Latresne.</p><figure class="popup-photo"><img src="./assets/aire-covoiturage-choisie.webp" width="1704" height="860" alt="Illustration du projet de pôle multimodal à l’entrée de l’aire de covoiturage" loading="eager"><figcaption>Illustration du projet de pôle multimodal</figcaption></figure><p>Une liaison cyclable relierait ce pôle à la piste existante au nord, pour faciliter son accès à vélo et encourager son utilisation. Le projet prévoit une voie cyclable détachée de la route départementale ; sa faisabilité et les conditions de sa réalisation restent à vérifier auprès des gestionnaires concernés.</p><p><em>Sujet à développer avec le groupe cyclabilité.</em></p><figure class="popup-photo"><img src="./assets/liaison-cyclable-projet.webp" width="717" height="480" alt="Illustration d’une voie cyclable pour la liaison projetée vers la piste existante" loading="eager"><figcaption>Illustration de la liaison cyclable envisagée</figcaption></figure>`;
         points[1].body = `<p>Vue actuelle de l’aire de covoiturage.</p><figure class="popup-photo"><img src="./assets/aire-diagnostic.webp" alt="Entrée actuelle de l’aire de covoiturage de Latresne" loading="eager"></figure>`;
       } else if (location.name === 'Rond-point du chemin d’Arcins') {
+        points[0].body = `<p>Au nord de Latresne, le terrain privé non artificialisé près du rond-point du chemin d’Arcins constitue une première option pour un pôle multimodal, en complément du pôle envisagé au sud sur l’aire de covoiturage.</p><p>Une entrée signalée par une arche en bois, des abris et arceaux pour vélos et une signalétique simple et visible permettraient d’identifier le lieu et de faciliter les correspondances entre vélo, covoiturage et transports collectifs. Les éléments en bois pourraient être sobres, économiques et issus du réemploi lorsque cela est possible.</p><p>Cette option suppose un accord avec le propriétaire et une étude préalable du zonage, des accès, des contraintes environnementales et du risque d’inondation. Le parking commercial de La Seleyre constitue une autre option pour le même pôle nord, et non un troisième pôle.</p><p><em>Sujet à développer avec les groupes stationnement et cyclabilité.</em></p>`;
         points[1].body = `<p>Vue du secteur du chemin d’Arcins.</p><figure class="popup-photo"><img src="./assets/arcins-diagnostic.webp" alt="Vue du secteur du chemin d’Arcins" loading="eager"></figure>`;
+      } else if (location.name === 'Rond-point de la Seleyre') {
+        points[0].body = `<p>Le parking des commerces près du rond-point de La Seleyre est une seconde option pour accueillir le pôle multimodal du nord, en complément de celui de l’aire de covoiturage au sud. Il s’agit d’une alternative à l’emplacement du chemin d’Arcins.</p><p>Nous proposons d’étudier avec les propriétaires et commerçants un partage de l’espace existant, avec des places de covoiturage, des arceaux à vélos et des cheminements sûrs vers les arrêts. Une arche, un abri et une signalétique en bois, dans le même esprit que l’aire de covoiturage, rendraient le pôle facilement reconnaissable et attractif.</p><p>La faisabilité dépend notamment de l’accord des propriétaires, du maintien des besoins des commerces et de l’accessibilité et de la sécurité des usagers.</p><p><em>Sujet à développer avec les groupes stationnement et cyclabilité.</em></p>`;
       }
       points.forEach(point => {
         const label = `${location.name} — ${point.type}`;
@@ -351,23 +395,41 @@
     const anchorX = anchorRect.left - viewportRect.left + anchorRect.width / 2;
     const anchorY = anchorRect.top - viewportRect.top + anchorRect.height / 2;
     const margin = 16;
-    const pointerHeight = 14;
     const maxX = viewportRect.width - popup.offsetWidth - margin;
-    const x = Math.max(margin, Math.min(anchorX - popup.offsetWidth / 2, maxX));
-    const aboveY = anchorY - popup.offsetHeight - pointerHeight;
-    const placeBelow = aboveY < margin;
-    const belowY = anchorY + pointerHeight;
+    const x = Math.max(margin, maxX / 2 + margin / 2);
     const maxY = viewportRect.height - popup.offsetHeight - margin;
-    const y = Math.max(margin, Math.min(placeBelow ? belowY : aboveY, maxY));
-    const tipX = Math.max(18, Math.min(anchorX - x, popup.offsetWidth - 18));
-    popup.classList.toggle('popup--below', placeBelow);
-    popup.style.setProperty('--popup-tip-x', `${tipX}px`);
+    let y = Math.max(margin, maxY / 2 + margin / 2);
+    // Éviter, quand l'espace le permet, de masquer le point visé.
+    if (anchorX >= x && anchorX <= x + popup.offsetWidth &&
+        anchorY >= y && anchorY <= y + popup.offsetHeight) {
+      if (anchorY - popup.offsetHeight - 18 >= margin) y = anchorY - popup.offsetHeight - 18;
+      else if (anchorY + 18 <= maxY) y = anchorY + 18;
+    }
     popup.style.left = `${x}px`;
     popup.style.top = `${y}px`;
+    let connector = $('#popup-connector');
+    if (!connector) {
+      connector = document.createElementNS(svgNS, 'svg');
+      connector.id = 'popup-connector';
+      connector.setAttribute('aria-hidden', 'true');
+      viewport.appendChild(connector);
+    }
+    connector.replaceChildren();
+    const startX=Math.max(x+14, Math.min(anchorX,x+popup.offsetWidth-14));
+    const startY=anchorY<y ? y : anchorY>y+popup.offsetHeight ? y+popup.offsetHeight : Math.max(y+14,Math.min(anchorY,y+popup.offsetHeight-14));
+    const edgeX=anchorY>=y && anchorY<=y+popup.offsetHeight ? (anchorX<x ? x : x+popup.offsetWidth) : startX;
+    el('line',{x1:edgeX,y1:startY,x2:anchorX,y2:anchorY,class:'popup-leader'},connector);
+    const angle=Math.atan2(anchorY-startY,anchorX-edgeX), size=8;
+    const leftX=anchorX-size*Math.cos(angle-.5), leftY=anchorY-size*Math.sin(angle-.5);
+    const rightX=anchorX-size*Math.cos(angle+.5), rightY=anchorY-size*Math.sin(angle+.5);
+    el('path',{d:`M ${anchorX} ${anchorY} L ${leftX} ${leftY} L ${rightX} ${rightY} Z`,fill:'#f8f7f0'},connector);
+    connector.hidden = false;
   }
 
   function closePopup() {
     popup.hidden = true;
+    const connector = $('#popup-connector');
+    if (connector) connector.hidden = true;
     popup.classList.remove('popup--below');
   }
 
@@ -516,3 +578,4 @@
   if (window.innerWidth <= 820) panel.classList.remove('is-open');
   requestAnimationFrame(fitView);
 })();
+
