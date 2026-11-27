@@ -213,15 +213,15 @@
     const roadData = {
       d113: `<p><strong>Trafic observé en juin 2018</strong><br>Environ 30 100 véhicules par jour sur la section étudiée de la D113, dont 3,6 % de poids lourds. Les comptages de la carte ont été réalisés du 12 au 18 juin 2018 ; ce chiffre ne décrit pas nécessairement la circulation actuelle.</p>
         <p><strong>Accidentologie, 2015–2017</strong><br>Deux accidents corporels recensés sur la section de D113 étudiée. Le périmètre ne couvre pas nécessairement tout l’axe.</p>
-        <p><em>Sujet à développer avec le groupe risques.</em></p>
+        
         <p><a href="https://www.gironde.fr/sites/default/files/2019-11/Dossier%20de%20concertation_Voies-Reservees_RD113.pdf" target="_blank" rel="noopener noreferrer">Source : Département de la Gironde, dossier de concertation 2019, p. 24–25</a></p>`,
       d10: `<p><strong>Trafic observé en 2018</strong><br>Environ 22 000 véhicules par jour entre Camblanes-et-Meynac et Latresne, dont 3,8 % de poids lourds. Cette donnée concerne le tronçon au sud de la D113, pas toute la D10 ni la route de Bordeaux. Elle est historique et ne décrit pas nécessairement le trafic actuel.</p>
         <p><strong>Accidentologie, 2015–2017</strong><br>Trois accidents corporels recensés le long de la D10 à proximité de l’aire d’étude, sans correspondre nécessairement à l’ensemble de la commune.</p>
-        <p><em>Sujet à développer avec le groupe risques.</em></p>
+        
         <p><a href="https://www.gironde.fr/sites/default/files/2019-11/Dossier%20de%20concertation_Voies-Reservees_RD113.pdf" target="_blank" rel="noopener noreferrer">Source : Département de la Gironde, dossier de concertation 2019, p. 24–25</a></p>`,
       d240: `<p><strong>Trafic de référence figurant dans un document de 2016</strong><br>7 820 véhicules par jour en moyenne annuelle (TMJA), dont 3 % de poids lourds, sur la D240 à Cénac, à partir de la sortie de Latresne. La date du comptage n’est pas précisée : cette valeur historique ne doit pas être présentée comme actuelle ni comme une mesure pour toute la D240.</p>
         <p><strong>Accidentologie, 2004–2008</strong><br>Le rapport de présentation du PLU de Latresne indique 3 accidents corporels sur la D240 dans la commune pendant cette période.</p>
-        <p><em>Sujet à développer avec le groupe risques.</em></p>
+        
         <p><a href="https://www.gironde.gouv.fr/contenu/telechargement/29993/214938/file/ClassSonor_Cenac.pdf" target="_blank" rel="noopener noreferrer">Source trafic : Préfecture de la Gironde, classement sonore de Cénac, 2016, p. 2</a></p>
         <p><a href="https://www.mairie-latresne.fr/wp-content/uploads/2021/07/1-RP.pdf" target="_blank" rel="noopener noreferrer">Source accidents : rapport de présentation du PLU de Latresne, janvier 2017, p. 56–58</a></p>`
     };
