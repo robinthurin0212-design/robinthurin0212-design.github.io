@@ -266,11 +266,16 @@
        reverse:'Aire de covoiturage vers Marie Blachère : 505 véhicules de 17 h 16 à 17 h 55 ; 388 sur 30 minutes.'},
       {place:'La Seleyre',x:842,y:165,angle:81,road:'D10'},
       {place:'La Seleyre',x:875,y:350,angle:77,road:'D10'},
-      {place:'Aire de covoiturage',x:960,y:957,angle:38,road:'D113'},
+      {place:'Aire de covoiturage',x:960,y:957,angle:38,road:'D113',
+       forward:'Marie Blachère vers l’aire de covoiturage : 812 véhicules de 17 h 16 à 17 h 55 ; 625 sur 30 minutes.',
+       reverse:'Aire de covoiturage vers Marie Blachère : 505 véhicules de 17 h 16 à 17 h 55 ; 388 sur 30 minutes.'},
       {place:'Aire de covoiturage',x:1017,y:920,angle:96,road:'D10'},
       {place:'Aire de covoiturage',x:1055,y:1047,angle:62,road:'D10',
-       forward:'Vers Camblanes-et-Meynac : 464 véhicules de 17 h 30 à 18 h 30.',
-       reverse:'Depuis Camblanes : 263 véhicules de 17 h 30 à 18 h 30.'}
+       forward:'Vers Camblanes-et-Meynac : 464 de 17 h 30 à 18 h 30. Sorties de Latresne : 216 de 18 h à 18 h 30.',
+       reverse:'Depuis Camblanes : 263 de 17 h 30 à 18 h 30. Vers Latresne : 252 de 18 h à 18 h 30.'},
+      {place:'Route de Cénac — Aérocampus',x:1119,y:931,angle:19,road:'D240',
+       forward:'En direction de Cénac : 24 voitures sorties de Latresne entre 8 h 46 et 8 h 51. Sur les deux sens réunis : 326 voitures de 8 h 21 à 8 h 51.',
+       reverse:'En direction de Latresne : 60 voitures entrées dans Latresne entre 8 h 40 et 8 h 45. Sur les deux sens réunis : 326 voitures de 8 h 21 à 8 h 51.'}
     ];
     arms.forEach(arm => [-1,1].forEach((direction,i) => {
       const theta=arm.angle*Math.PI/180, offset=i ? 8 : -8;
@@ -278,7 +283,6 @@
       const value=direction===1 ? arm.forward : arm.reverse;
       const label=`Comptage ${arm.road} — ${arm.place}, vers le ${direction===1 ? 'sud-est' : 'nord-ouest'}`;
       const g=markerGroup(layer,x,y,label,()=>openPopup({kicker:'Comptage directionnel',title:label,body:value ? `<p>${value}</p><p>Source : Retour terrain Latresne, onglet Comptage.</p>` : '<p>Comptage pour ce sens à renseigner.</p>'},g),'direction-marker');
-      el('circle',{r:13,class:'hit'},g);
       el('path',{d:'M -9 -4 L 1 -4 L 1 -8 L 10 0 L 1 8 L 1 4 L -9 4 Z',transform:`rotate(${arm.angle+(direction===-1?180:0)})`,class:'direction-arrow'},g);
     }));
   }
