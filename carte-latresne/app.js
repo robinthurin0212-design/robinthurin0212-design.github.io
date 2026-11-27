@@ -336,6 +336,9 @@
       } else if (location.name === 'Rond-point de la Seleyre') {
         points[0].body = `<p>Le parking des commerces près du rond-point de La Seleyre est une seconde option pour accueillir le pôle multimodal du nord, en complément de celui de l’aire de covoiturage au sud. Il s’agit d’une alternative à l’emplacement du chemin d’Arcins.</p><p>Nous proposons d’étudier avec les propriétaires et commerçants un partage de l’espace existant, avec des places de covoiturage, des arceaux à vélos et des cheminements sûrs vers les arrêts. Une arche, un abri et une signalétique en bois, dans le même esprit que l’aire de covoiturage, rendraient le pôle facilement reconnaissable et attractif.</p><p>La faisabilité dépend notamment de l’accord des propriétaires, du maintien des besoins des commerces et de l’accessibilité et de la sécurité des usagers.</p><p><em>Sujet à développer avec les groupes stationnement et cyclabilité.</em></p>`;
       }
+      if (location.name === 'Rond-point du chemin d’Arcins' || location.name === 'Rond-point de la Seleyre') {
+        points[0].body += `<figure class="popup-photo"><img src="./assets/aire-covoiturage-choisie.webp" alt="Illustration du pôle sud utilisée comme référence pour les aménagements en bois" loading="eager"><figcaption>Référence visuelle : projet de l’aire de covoiturage au sud, à adapter au site retenu au nord.</figcaption></figure>`;
+      }
       points.forEach(point => {
         const label = `${location.name} — ${point.type}`;
         const g = markerGroup(layer, point.x, y, label, () => openPopup({kicker:point.kicker, title:location.name, body:point.body}, g));
